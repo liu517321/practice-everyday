@@ -1,0 +1,7 @@
+private static void print(Node head) {
+        System.out.println("打印链表：");
+        for (Node cur = head; cur != null; cur = cur.next) {
+            System.out.print(cur + " --> ");
+        }
+        System.out.println("null");
+    }

@@ -1,0 +1,13 @@
+public static boolean find2(Node root, int val) {
+        if (root == null) {
+            return false;
+        }
+        if (root.val == val) {
+            return true;
+        }
+        if (find2(root.left, val)) {
+            return true;
+        }
+
+        return find2(root.right, val);
+    }

@@ -1,0 +1,9 @@
+public static Node find(Node root, int val) {
+        if (root == null) { return null; }
+        if (root.val == val) { return root; }
+        Node n = find(root.left, val);
+        if (n != null) { return n; }
+        n = find(root.right, val);
+        if (n != null) { return n; }
+        return null;
+    }

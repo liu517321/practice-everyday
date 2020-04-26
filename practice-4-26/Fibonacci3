@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int Fibonacci(int n) {
+         // 初始值
+        if (n <= 0){
+            return 0;
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        int fn1 = 1;
+        int fn2 = 1;
+        int result = 0;
+        for (int i = 3; i <= n; i++){
+            // F(n)=F(n-1)+F(n-2)
+            result = fn2 + fn1;
+            // 更新值
+            fn1 = fn2;
+            fn2 = result;
+        }
+        return result;
+    }
+};

@@ -1,0 +1,365 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#include<stdlib.h>
+#define N sizeof(struct book)
+#define PT "%-5d %10s %6s %6s %8s %3d \n",p->num,p->name,p->where,p->author,p->pub,p->count
+struct book /*图书信息*/
+{
+	int num; /*书号*/
+	char name[10]; /*书名*/
+	char where[10]; /*所在书库*/
+	char author[15]; /*作者*/
+	char pub[20]; /*出版社*/
+	int count; /*数量*/
+	struct book *next;
+};
+typedef struct book *L;
+ 
+void save(L head);
+ 
+/*输出模块*/
+void print(struct book *p0)
+{
+	struct book *p;
+	p=p0->next;
+	printf("\n\n\t\t^^^^^^^^^^^^^^图书信息表^^^^^^^^^^^^^^");
+	printf("\n\n图书编号---图书名称---所在书库----作者----出版社---数量\n");
+	while(p)
+	{
+		printf("%-5d %10s %6s %6s %8s %3d \n",p->num,p->name,p->where,p->author,p->pub,p->count);
+		p=p->next;
+	}
+	getch();
+}
+/*输入模块*/
+struct book *creat()
+{
+	struct book *head,*p1,*p2;
+	int i=0;
+	head=p2=(struct book *)malloc(N);
+	head->next=NULL;
+	printf("\n\n\t\t录入图书信息");
+	printf("\n\t---------------------------------------");
+	while(1)
+	{
+		p1=(struct book *)malloc(N);
+		printf("\n 请输入图书编号(书号为0结束): ");
+		scanf("%d",&p1->num);
+		if(p1->num!=0)
+		{
+			printf("\n\n书名 所在书库 作者 出版社 图书数量\n");
+			scanf("%s%s%s%s%d",p1->name,p1->where,p1->author,p1->pub,&p1->count);
+			p2->next=p1;
+			p2=p1;
+			i++;
+		}
+		else
+		break;
+	}
+	p2->next=NULL;
+	free(p1);
+	printf("\n\t\t----------------------------------------");
+		printf("\n\t\t %d 种书录入完毕",i);
+	getch();
+	return head;
+}
+/*查找模块*/
+void find(struct book *p0)
+{
+	char name[10];
+	int flag=1;
+	struct book *p;
+	p=p0->next;
+	printf("请输入要查找的书名：\n");
+	scanf("%s",name);
+	for(p=p0;p;p=p->next)
+	if(strcmp(p->name,name)==0)
+	{
+		printf("\n\n图书编号---图书名称---所在书库----作者----出版社---数量\n");
+		printf(PT);
+		flag=0;
+		break;
+	}
+	if(flag)
+		printf("\n 暂无此图书信息\n");
+	getch();
+}
+/*删除模块*/
+void del(struct book *p0)
+{
+	char name[10];
+	int flag=1;
+	struct book *p;
+	p=p0;
+	printf("请输入要删除的书名：\n");
+	scanf("%s",name);
+	while(p!=NULL)
+	{
+		if(strcmp(p->name,name)==0)
+		{
+			p0->next=p->next; /*后续节点连接到前驱节点之后*/
+			free(p);
+			printf("\t该书资料已删除.");
+			flag=0;
+			break;
+		}
+		p0=p;
+		p=p->next;
+	}
+	save(p0);
+	if(flag)
+		printf("\n\t无此图书信息。");
+		getch();
+}
+/*增加模块*/
+void insert(L head)
+{
+    int k,flag;
+	L p,pre;
+	
+	if(pre == NULL)
+		pre = head;
+ 
+	while(1)
+	{
+	    flag = 0;
+		printf("\n 请输入要增加的图书编号(书号为0 退出): ");
+		scanf("%d",&k);
+		if(k!=0)
+		{
+			pre = head->next;
+			while(pre) //找到重号
+			{
+				if(k == pre->num){
+		            printf("\t该书已存在");
+		            system("PAUSE");
+		            flag = 1;
+		            break;
+				}
+		        pre = pre->next;
+			}
+			if(flag)
+				break;
+            p = new book;
+            printf("\n\n书名 所在书库 作者 出版社 图书数量\n");
+            p->num = k;
+            scanf("%s%s%s%s%d",p->name,p->where,p->author,p->pub,&p->count);
+            p->next = head->next;
+			head->next = p;
+            printf("\t已成功插入.");
+		}
+		else 
+			break;
+	}
+	save(head);
+}
+/*修改模块*/
+void modify(struct book *p0)
+{
+	char name[10];
+	int flag=1;
+	int choice;
+	struct book *p;
+	p=p0->next;
+	printf("请输入要修改的书名：\n");
+	scanf("%s",name);
+	while(p!=NULL&&flag==1)
+	{
+		if(strcmp(p->name,name)==0)
+		{
+			printf("\n\t请选择要修改的项：");
+			printf("\n\t 1.修改图书编号\n");
+			printf("\n\t 2.修改图书所在书库\n");
+			printf("\n\t 3.修改图书作者\n");
+			printf("\n\t 4.修改图书出版社\n");
+			printf("\n\t 5.修改图书库存量\n");
+			scanf("%d",&choice);
+			switch(choice)
+			{
+				case 1:
+				{
+					printf("\n 请输入新的图书编号:");
+					scanf("%d",&p->num); break;
+				}
+				case 2:
+				{
+					printf("\n 请输入新的图书书库:");
+					scanf("%s",p->where); break;
+				}
+				case 3:
+				{
+					printf("\n 请输入新的图书作者:");
+					scanf("%s",p->author); break;
+				}
+				case 4:
+				{
+					printf("\n 请输入新的图书出版社:");
+					scanf("%s",p->pub); break;
+				}
+				case 5:
+				{
+					printf("\n 请输入新的图书库存量:");
+					scanf("%d",&p->count); break;
+				}
+			}
+			printf("\n\t该项已成功修改。\n\t 新的图书信息：");
+			printf("\n\n图书编号---图书名称---所在书库----作者----出版社---数量\n");
+			printf(PT);
+			flag=0;
+			save(p0);
+		}
+		p = p->next;
+	}
+	if(flag) printf("\n\t暂无此图书信息。");
+	getch();
+}
+/*读文件*/
+struct book *read_file()
+{
+	int i=0;
+	L p,p1,head=NULL;
+	FILE *fp;
+	if((fp=fopen("library.txt","r"))==NULL)
+	{
+		printf("\n\n\n\n\n \t********库文件不存在，请创建！**********");
+        getch();
+        return NULL;
+	}
+	head=new book;
+	head->next=NULL;
+	printf("\n 已有图书信息：");
+	printf("\n\n图书编号---图书名称---所在书库----作者----出版社---数量\n");
+    p=new book; /*开辟空间以存放的取得信息*/
+    p1 = head;
+    while(fscanf(fp,"%d%s%s%s%s%d",&p->num,p->name,p->where,p->author,p->pub,&p->count)!=EOF)
+    {
+        printf("%d %s %s %s %s %d\n",p->num,p->name,p->where,p->author,p->pub,p->count);
+        i++;
+        p1->next = p;
+        p1 = p;
+        p=new book;
+    }
+    p1->next = NULL;
+    delete p;
+	fclose(fp);
+	printf("\n 共种%d 图书信息",i);
+	printf("\n\n\n 文件中的信息以正确读出。按任意键进入主菜单。");
+	getch();
+	return (head);
+}
+/*保存文件*/
+void save(L head)
+{
+	FILE *fp;
+	L p;
+	fp=fopen("library.txt","w"); /*以只写方式打开二进制文件*/
+	if(fp==NULL) /*打开文件失败*/
+	{
+		printf("\n=====>打开文件失败!\n");
+		getch();
+		return ;
+	}
+	else{
+        for(p=head->next;p!=NULL;p=p->next)
+            fprintf(fp,"%d %s %s %s %s %d\n",p->num,p->name,p->where,p->author,p->pub,p->count);
+	}
+	fclose(fp);
+}
+void Begin()
+{
+	L head=new book, p;
+	int choice=1;
+	head->next = NULL;
+	p=read_file();
+	if(p)
+        head = p;
+	do
+	{
+		system("cls");
+		printf("\t\t----------Welcome---------\n");
+		printf("\n\n\t欢迎您，图书管理员.\n\n");
+		printf("\n\t 请选择：");
+		printf("\n\t 1.查询图书信息\n");
+		printf("\n\t 2.修改图书信息\n");
+		printf("\n\t 3.增加图书信息\n");
+		printf("\n\t 4.删除图书信息\n");
+		printf("\n\t 5.显示所有图书信息\n");
+		printf("\n\t 0.退出系统\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: find(head); break;
+			case 2: modify(head); break;
+			case 3: insert(head); break;//已改完
+			case 4: del(head); break;
+			case 5: print(head); break;
+			case 0: system("cls");
+			printf("\n\n\n\n\n\t^^^^^^^^^^谢谢使用，再见^^^^^^^^^^！\n\n");
+			system("PAUSE");
+			exit(0);
+			default :
+				printf("\n\n\t\t输入有误！！\n");
+				system("PAUSE");system("cls"); break;
+		}
+	}while(choice!=0);
+	save(head);
+}
+void About()
+{
+	system("cls");
+	printf("\n\n\n");
+	printf("\t\t          开发人员           \n\n");
+	printf("\t\t****************************\n\n");
+	printf("\t\t*****      XXXXXX      *****\n\n");
+	printf("\t\t*****      XXXXXX      *****\n\n");
+	printf("\t\t*****      XXXXXX      *****\n\n");
+	printf("\t\t****************************\n\n");
+	getch();
+}
+void Introduction()
+{
+	system("cls");
+	printf("\n\n\n");
+	printf("\t\t          系统介绍           \n\n");
+	printf("\t\t*****************************\n\n");
+	printf("\t\t    本系统主要实现图书信息   \n\n");
+	printf("\t\t 查找 增加 删除 修改 浏览功能 \n\n");
+	printf("\t\t*****************************\n\n");
+	getch();
+}
+void Welcome()
+{
+	while(1)
+	{
+		int input;
+		system("cls");
+		printf("\n\n\n\t\t图书馆管理系统\n");
+		printf("\n\t\t1.管理系统\n");
+		printf("\n\t\t2.开发人员\n");
+		printf("\n\t\t3.系统简介\n");
+		printf("\n\t\t4.退出\n");
+		printf("\n\t请输入你的选项：");
+		scanf("%1d", &input);
+		switch(input){
+			case 1:
+				system("cls"); Begin(); break;
+			case 2:
+				About(); break;
+			case 3:
+				Introduction(); break;
+			case 4:
+				exit(0);
+			default :
+				printf("\n\n\t\t输入有误！！\n");
+				system("PAUSE"); system("cls"); break;
+		}	
+	}
+}
+ 
+int main()
+{
+	system("mode con  cols=70 lines=30");
+	Welcome();
+	return 0;
+}

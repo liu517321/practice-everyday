@@ -1,0 +1,157 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#include<malloc.h>
+#include <iostream>
+using namespace std;
+
+#define OVERFLOW -2
+#define MaxNumber 100
+typedef struct
+{
+    char name[50];
+    char sex;//性别M表示男，F表示女
+}Person;
+typedef Person DataType;
+ 
+typedef struct
+{
+    int front ;
+    int rear ;
+    int count;
+    DataType data[MaxNumber];
+}SqQueue;
+
+//初始化队列
+void InitQueue(SqQueue &Q)
+{
+    Q.front = Q.rear = 0;
+    Q.count = 0;
+}
+
+
+//判断队列空
+int QueueEmpty(SqQueue &Q)
+{
+    return Q.count == 0;//队列无元素
+}
+
+
+//判断队列满
+int QueueFull(SqQueue &Q)
+{
+    return Q.count == MaxNumber;//队列中元素个数等于最大数时队满
+}
+
+
+//入队列
+void EnQueue(SqQueue &Q,DataType x)
+{
+    if(QueueFull(Q))
+    {
+        printf("队列已满！");//队满上溢
+        exit(1);
+    }
+    Q.count++;//队列元素个数加1；
+    Q.data[Q.rear] = x;//新元素插入队尾
+    Q.rear = (Q.rear+1)%MaxNumber;//循环意义下尾指针加1
+}
+
+//出队列
+DataType DeQueue(SqQueue &Q)
+{
+    DataType temp;
+    if(QueueEmpty(Q))
+    {
+        printf("Queue underflow");//队空下溢
+        exit(1);
+    }
+    temp = Q.data[Q.front];
+    Q.count--;
+    Q.front = (Q.front+1)%MaxNumber;
+    return temp;
+}
+
+//取队头元素
+DataType QueueFront(SqQueue &Q)
+{
+    if(QueueEmpty(Q))
+    {
+        printf("队列为空！");
+        exit(1);
+    }
+    return Q.data[Q.front];
+}
+ 
+
+void DancePartner(Person dancer[],int num)
+{//结构数组中dancer中存放跳舞的男女，num是跳舞人数
+    int i;
+    Person p;
+    SqQueue Mdancer,Fdancer;
+    InitQueue(Mdancer);
+    InitQueue(Fdancer);//男女队列初始化
+	printf("\n");
+    for(i=0;i<num;i++)//将舞者性别入队
+    {
+        p = dancer[i];
+        if(p.sex=='F')
+           {
+               EnQueue(Fdancer,p);//女队
+               printf("%s进入女生队列\n",p.name);
+           }
+        else if(p.sex=='M')
+        {
+              EnQueue(Mdancer,p);//男队
+              printf("%s进入男生队列\n",p.name);
+ 
+        }
+        else
+        {
+            printf("含有无效的输入，请重新来过！\n");
+            exit(1);
+        }
+ 
+    }
+    printf("\n成功匹配的舞伴是:\n");
+    while(!QueueEmpty(Fdancer)&&!QueueEmpty(Mdancer))
+    {
+        //依次输出男女舞伴名
+        p = DeQueue(Fdancer);
+        printf("%s  ",p.name);
+        p = DeQueue(Mdancer);
+        printf("%s\n",p.name);
+    }
+    if(!QueueEmpty(Fdancer))//输出女生剩余人数及队头女生名字
+       {
+           printf("有%d个女生正在等待下一轮 \n",Fdancer.count);
+           p = QueueFront(Fdancer);//取队头
+           printf("%s等待下一轮，将要第一个获得舞伴\n",p.name);
+       }
+    else if(!QueueEmpty(Mdancer))
+    {
+           printf("有%d个男生正在等待下一轮 \n",Mdancer.count);
+           p = QueueFront(Mdancer);//取队头
+           printf("%s等待下一轮，将要第一个获得舞伴\n",p.name);
+    }
+}
+
+
+int  main()
+ {
+    int num,i;
+    Person Dancers[MaxNumber];
+    printf("请输入参加跳舞的总人数：\n");
+    scanf("%d",&num);
+    for(i=0;i<num;i++)
+    {
+        printf("请输入性别(F or M):\n");
+        scanf("%s",&(Dancers[i].sex));
+        printf("请输入姓名:\n");
+        scanf("%s",&(Dancers[i].name));
+    }
+
+   if(num!=0)
+    DancePartner(Dancers,num);
+   return 0;
+}

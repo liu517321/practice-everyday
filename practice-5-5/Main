@@ -1,0 +1,10 @@
+class HelloWorld
+{
+	static void Main()
+	{
+		string name;
+		System.Console.Write("你的名字是：");
+		name = System.Console.ReadLine();
+		System.Console.WriteLine("我的名字是{0}",name);
+	}
+}

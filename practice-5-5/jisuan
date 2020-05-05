@@ -1,0 +1,72 @@
+%读入图像
+image = double( imread('D:\Pictures\img\Lena.Bmp'));  %载入灰度图像
+
+
+%图像大小
+[x,y] = size(image);
+info = imfinfo('D:\Pictures\img\Lena.Bmp');
+
+%灰度平均值
+s=0;
+for i = 1 : x
+    for j = 1 : y
+        s=s + image(i , j); %求像素值总和
+    end
+end
+aver = s/(x * y); 
+
+%对图像进行加噪声变换
+
+new = imnoise(image,'salt & pepper',0.02); %给图像加入噪声 椒盐噪声
+new = double(new);
+
+%噪声变换后图像灰度平均值
+[x,y]=size(new);
+s1=0;
+for i = 1 : x
+    for j = 1 : y
+        s1 = s1  + new(i , j); %求像素值总和 s1
+    end
+end
+newaver=s1 /(x * y); 
+
+%协方差值
+[x,y]=size(new);
+s2 = 0;
+for i = 1 : x
+    for j = 1 : y
+        s2  =s2 + (image(i , j) - aver) * (new(i , j) - newaver);
+       
+    end
+end
+c = s2/(x * y);     %两幅图像间的协方差值
+
+
+%方差
+%原图像的方差
+s3=0;
+for i = 1 : x
+    for j = 1 : y
+        s3 = s3 + (image(i , j) - aver) * (image(i , j) - aver); 
+    end
+end
+cff = s3/(x * y);%方差
+%噪声变换后图像方差
+s4=0;
+for i = 1 : x
+    for j = 1 : y
+        s4 = s4 + (new(i , j) - newaver) * (new(i , j) - newaver); 
+    end
+end
+newcff = s4/(x * y);
+
+
+%标准差
+%原图像的方差
+sd = sqrt(double(cff));
+%噪声变换后图像标准差
+newsd = sqrt(double(newcff));
+
+
+%相关系数
+r = c / (sd * newsd);

@@ -1,0 +1,12 @@
+package main;
+
+import Factory.LanguageFactory;
+import Interface.Languages;
+
+public class test {
+    public static void main(String[] args){
+        LanguageFactory lf=new LanguageFactory();
+        Languages Ch=lf.Speak("Chinese");
+        Languages En=lf.Speak("English");
+    }
+}

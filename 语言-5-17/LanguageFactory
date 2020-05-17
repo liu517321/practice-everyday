@@ -1,0 +1,16 @@
+package Factory;
+
+import Interface.Languages;
+import Interface.impl.Chinese;
+import Interface.impl.English;
+
+public class LanguageFactory {
+    public Languages Speak(String LanguagesType){
+        if(LanguagesType.equals("Chinese")){
+            return new Chinese();
+        }else if (LanguagesType.equals("English")){
+            return new English();
+        }
+        return null;
+    }
+}

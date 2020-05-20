@@ -1,0 +1,136 @@
+#include<stdio.h>
+#define MAXQSIZE 100
+#define QueueSize 20
+#define OK 1
+#define ERROR 0
+#define OVERFLOW 0
+#include <cstdlib>
+#include<iostream>
+using namespace std;
+    
+typedef char QElemType;
+typedef int Status;
+
+typedef struct
+{
+    char name[QueueSize];
+    char sex;
+}person;
+
+ 
+typedef struct
+{
+    person *dancer;
+    person *base;      
+    int front;           
+    int rear;             
+}SqQueue; 
+
+Status InitQueue(SqQueue &Q)
+{
+    Q.base=new person[MAXQSIZE];    
+    if(!Q.base) exit(OVERFLOW);        
+    Q.front=Q.rear=0;                  
+    return OK;     
+ }
+
+ 
+ Status EnQueue(SqQueue &Q,person e)
+ {
+     if((Q.rear+1)%MAXQSIZE==Q.front)   
+        return ERROR;
+    Q.base[Q.rear]=e;                
+    Q.rear=(Q.rear+1)%MAXQSIZE;       
+    return OK; 
+ }
+ 
+ int QueueEmpty(SqQueue &Q)
+{
+    if (Q.front==Q.rear)   return OK;
+    else return ERROR; 
+}
+ 
+ Status DeQueue(SqQueue &Q,person &e)
+ {
+     if(Q.front==Q.rear) return ERROR;   
+    e=Q.base[Q.front];                  
+    Q.front=(Q.front+1)%MAXQSIZE;      
+    return OK; 
+     
+ }
+
+person GetHead(SqQueue Q)
+{
+    if(Q.front!=Q.rear)             
+        return Q.base[Q.front];       
+ } 
+
+void DancePartner(person dancer[],int num)
+{
+    person p;
+    int i;
+    SqQueue Mdancers,Fdancers;
+    InitQueue(Mdancers);     
+    InitQueue(Fdancers);     
+    for (i=0;i<num;i++)      
+    {
+        p=dancer[i];
+        if (p.sex=='F')  EnQueue(Fdancers,p);    
+        else EnQueue(Mdancers,p);                
+     } 
+    cout<<"一起跳舞的男女舞伴:\n";
+    while(!QueueEmpty(Fdancers)&&!QueueEmpty(Mdancers)) 
+    {
+        cout<<endl;
+        cout<<"女舞伴"<<"<------->"<<"男舞伴"<<endl;
+        DeQueue(Fdancers,p);    
+        cout<<p.name<<" ";  
+		cout<<"<-------->";
+        DeQueue(Mdancers,p);    
+        cout<<p.name<<endl;     
+             
+    }
+	cout<<endl;
+    if (!QueueEmpty(Fdancers))      
+    {
+        p=GetHead(Fdancers);     
+        cout<<p.name<<" 是下一轮第一个等待的舞伴 "<<endl;   
+    }
+    else if (!QueueEmpty(Mdancers))   
+    {
+        p=GetHead(Mdancers);     
+        cout<<p.name<<" 是下一轮第一个等待的舞伴 "<<endl;  
+    }
+     
+ } 
+ 
+int main()
+ {
+     int i,j;
+     person dancer[QueueSize];
+     cout<<"请输入跳舞的人数：";
+     cin>>j;
+     cout<<endl;
+     while(j<=0)
+     {
+         cout<<"输入错误，请重新输入跳舞的人数："; 
+         cin>>j;
+     }
+    for(i=1;i<=j;i++)
+    {
+        cout<<"请输入第"<<i<<"个舞者的名字:";
+        cin>>dancer[i-1].name;
+        cout<<"请输入第"<<i<<"个人的性别(F/M):";
+        cin>>dancer[i-1].sex;
+		cout<<endl;
+        while(dancer[i-1].sex!='F'&&dancer[i-1].sex!='M')
+        {
+            cout<<"*******输入错误，请重新输入：\n";
+            cout<<dancer[i-1].sex;
+            cout<<"请输入第"<<i<<"个人的性别(F/M):"<<endl;
+            cin>>dancer[i-1].sex;
+            break;
+        }
+    }
+    DancePartner(dancer,j);
+ }

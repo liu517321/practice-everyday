@@ -1,0 +1,42 @@
+import java.util.Scanner;
+public class Main {
+     public static void main(String[] args) {
+         Scanner sc = new Scanner(System.in);
+         int n = sc.nextInt();
+         String s = sc.nextLine();
+         System.out.println(direction(n,s));
+     }
+    public static char direction(int n,String s){
+        if(n == 0 || s == null || s.length() <= 0){
+        return 'N';
+        }
+        int res = 1;
+        for(int i = 0;i < s.length();i++){
+            if (s.charAt(i) == 'L'){
+                res --;
+            }else{
+                res ++;
+            }
+        }
+        res %= 4;
+        if(res < 0){
+            res += 4;
+        }
+        char sum = '0';
+        switch (res){
+            case 0:
+                sum = 'W';
+                break;
+            case 1:
+                sum = 'N';
+                break;
+            case 2:
+                sum = 'E';
+                break;
+            case 3:
+                sum = 'S';
+                break;
+        }
+        return sum;
+    }
+}

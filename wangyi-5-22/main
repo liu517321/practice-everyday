@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        int a = scanner.nextInt();
+        int b = scanner.nextInt();
+        int c = scanner.nextInt();
+        int count = 0;
+        if(a*b > a+b){//先判断a+b和a*b哪个更大，取大者进行运算
+            count = a*b;
+        }else{
+            count = a+b;
+        }
+        if(c > 1){//c小于1就相加，c大于1就相乘
+            System.out.println(count * c);
+        }else{
+            System.out.println(count + c);
+        }
+    }
+}

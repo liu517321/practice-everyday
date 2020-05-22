@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(grade());
+
+
+    }
+    public static int grade(){
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        int[] array = new int[n];
+        for(int i = 0;i < m;i++){
+            array[scanner.nextInt()-1]++;
+        }
+        Arrays.sort(array);
+        return array[0];
+
+    }
+
+}

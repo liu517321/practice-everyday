@@ -1,0 +1,11 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String arg[]){
+        Scanner scan=new Scanner(System.in);
+        String str=new String();
+        str=scan.next();
+        int count=(str.length()+1)*26-str.length();
+        System.out.println(count);
+    }
+}

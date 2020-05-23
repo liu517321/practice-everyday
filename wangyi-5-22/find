@@ -1,0 +1,16 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double n = sc.nextDouble();
+        int x = (int)(Math.sqrt(2*n));
+        if((x+1)*x / 2 < n)
+        {
+            System.out.println(x+1);
+        }
+        else {
+            System.out.println(x);
+        }
+    }
+}

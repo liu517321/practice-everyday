@@ -1,0 +1,18 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        int[] v = new int[26];
+        for(int i = 0; i < s.length(); ++i) 
+            v[s.charAt(i) - 'a']++;//统计字母个数
+        for(int i = 0; i < 26; ++i){
+            if(v[i] != 0){
+                char temp = (char)('a' + i);
+                System.out.print(temp);
+                if(v[i] != 1)
+                    System.out.print(v[i]);
+            }
+        }
+    }
+}

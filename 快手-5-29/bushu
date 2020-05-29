@@ -1,0 +1,25 @@
+import java.util.*;
+ 
+public class Main{
+    public static int reachNumber(int target) {  
+        int step = 0;
+        int sum = 0;
+        while(sum < target){
+            step++;
+            sum += step;
+        }
+        while( (sum - target) % 2 != 0 ){
+            step++;
+            sum += step;
+        }
+        return step;
+    }
+     
+    public static void main(String[] args){
+         
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int step = reachNumber(n);
+        System.out.println(step);
+    }
+}

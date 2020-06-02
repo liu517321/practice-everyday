@@ -1,0 +1,4 @@
+ public void pushBack(int element) {
+        ensureCapacity();
+        array[size++] = element;
+    }

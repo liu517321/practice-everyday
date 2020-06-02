@@ -1,0 +1,9 @@
+ public void pushFront(int element) {
+        ensureCapacity();
+        for (int i = size; i >= 1; i--) {
+            array[i]  = array[i - 1];
+        }
+
+        array[0] = element;
+        size++;
+    }

@@ -1,0 +1,12 @@
+private void ensureCapacity() {
+        if (size < array.length) {
+            return;
+        }
+
+        int newCapacity = array.length * 2;
+        int[] newArray = new int[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        array = newArray;
+    }

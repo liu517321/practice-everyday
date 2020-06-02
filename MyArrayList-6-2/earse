@@ -1,0 +1,18 @@
+
+    public void earse(int index) {
+        if (size <= 0) {
+            System.err.println("顺序表为空");
+            return;
+        }
+
+        if (index < 0 || index >= size) {
+            System.err.println("下标错误");
+            return;
+        }
+
+        for (int i = index + 1; i < size; i++) {
+            array[i - 1] = array[i];
+        }
+
+        array[--size] = 0;
+    }

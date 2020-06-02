@@ -1,0 +1,6 @@
+ public void remove(int element) {
+        int index = indexOf(element);
+        if (index != -1) {
+            earse(index);
+        }
+    }

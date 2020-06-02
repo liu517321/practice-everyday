@@ -1,0 +1,7 @@
+public void set(int index, int element) {
+        if (index < 0 || index >= size) {
+            System.err.println("下标错误");
+            return;
+        }
+        array[index] = element;
+    }

@@ -1,0 +1,7 @@
+public void popBack() {
+        if (size <= 0) {
+            System.err.println("顺序表为空");
+            return;
+        }
+        array[--size] = 0;
+    }

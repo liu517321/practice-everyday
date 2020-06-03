@@ -1,0 +1,13 @@
+class Node {
+    int val;   // data | element
+    Node next; // 如果 next == null 表示是最后一个结点
+
+    Node(int val) {
+        this.val = val;
+        this.next = null;
+    }
+
+    public String toString() {
+        return String.format("Node(%d)", val);
+    }
+}

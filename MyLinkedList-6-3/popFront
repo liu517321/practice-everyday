@@ -1,0 +1,9 @@
+private static Node popFront(Node head) {
+        if (head == null) {
+            System.err.println("空链表无法删除");
+            return null;
+        }
+
+        // 原来第一个结点，会因为没有引用指向而被回收
+        return head.next;
+    }

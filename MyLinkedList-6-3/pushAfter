@@ -1,0 +1,6 @@
+private static void pushAfter(Node pos, int val) {
+        Node node = new Node(val);
+
+        node.next = pos.next;
+        pos.next = node;
+    }

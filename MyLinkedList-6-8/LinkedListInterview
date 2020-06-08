@@ -1,0 +1,117 @@
+class ListNode {
+    public int val;
+    public ListNode next;
+
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+
+    public ListNode(int val) {
+        this(val, null);
+    }
+}
+
+public class LinkedListInterview {
+    //给定一个 val 值，链表中小于 val 的值放在左边，大于 val 的值放在右边，返回头结点 head
+    
+    
+    
+    public ListNode separateByX(ListNode head, int x) {
+         /*
+        遍历整个链表，把小于 x 的尾插到一个小链表
+                      把大于等于 x 的尾插到一个大链表中
+        理想情况下，把大链表接到小链表后边
+        1) 如果没有小链表，直接返回大链表(大链表可能为空）
+
+        保证，返回链表的最后一个结点.next == null
+        sEnd / bEnd
+         */
+        /* 尾插
+        1. 先情况讨论：
+            1）如果当前链表为空，要插入的结点就是链表的第一个结点
+            2) 如果链表不为空，
+                1. 先找到当前的最后一个结点
+                2. 让当前的最后一个结点的 next = 要插入的结点
+                3. 如果每次的最后一个结点都是我们插入的
+                    可以记录上次插入的最后一个结点
+                4. 不要忘记更新最后一个结点
+         */
+
+        
+        ListNode sHead = null;// 指向小链表的第一个结点
+        ListNode sEnd = null;// 记录小链表的最后一个结点
+        ListNode bHead = null;
+        ListNode bEnd = null;
+
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            if (cur.val < x) {
+                 /* 尾插到小的链表中 */
+                if (sHead == null) {
+                    sHead = cur;
+                } else {
+                    sEnd.next = cur;
+                }
+                sEnd = cur;
+            } else {
+                /* 尾插到大的链表中 */
+                // 同理
+                if (bHead == null) {
+                    bHead = cur;
+                } else {
+                    bEnd.next = cur;
+                }
+                bEnd = cur;
+            }
+        }
+
+        if (sEnd == null) {
+            return bHead;
+        }
+
+        sEnd.next = bHead;
+        if (bEnd != null) {
+            bEnd.next = null;
+        }
+        return sHead;
+    }
+
+
+
+
+
+    private static ListNode createTestList() {
+        ListNode n1 = new ListNode(4);
+        ListNode n2 = new ListNode(5);
+        ListNode n3 = new ListNode(2);
+        ListNode n4 = new ListNode(7);
+        ListNode n5 = new ListNode(6);
+        ListNode n6 = new ListNode(3);
+        ListNode n7 = new ListNode(8);
+        ListNode n8 = new ListNode(1);
+
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+        n5.next = n6;
+        n6.next = n7;
+        n7.next = n8;
+
+        return n1;
+    }
+    
+    private static void test() {
+        // 4 5 2 7 6 3 8 1
+        ListNode head = createTestList();
+        ListNode result = new LinkedListInterview().separateByX(head, 5);
+        // 4 2 3 1 5 7 6 8
+        for (ListNode cur = result; cur != null; cur = cur.next) {
+            System.out.println(cur.val);
+        }
+    }
+
+    public static void main(String[] args) {
+        test();
+    }
+}

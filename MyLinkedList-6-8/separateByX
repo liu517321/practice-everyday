@@ -1,0 +1,58 @@
+public ListNode separateByX(ListNode head, int x) {
+         /*
+        遍历整个链表，把小于 x 的尾插到一个小链表
+                      把大于等于 x 的尾插到一个大链表中
+        理想情况下，把大链表接到小链表后边
+        1) 如果没有小链表，直接返回大链表(大链表可能为空）
+
+        保证，返回链表的最后一个结点.next == null
+        sEnd / bEnd
+         */
+        /* 尾插
+        1. 先情况讨论：
+            1）如果当前链表为空，要插入的结点就是链表的第一个结点
+            2) 如果链表不为空，
+                1. 先找到当前的最后一个结点
+                2. 让当前的最后一个结点的 next = 要插入的结点
+                3. 如果每次的最后一个结点都是我们插入的
+                    可以记录上次插入的最后一个结点
+                4. 不要忘记更新最后一个结点
+         */
+
+        
+        ListNode sHead = null;// 指向小链表的第一个结点
+        ListNode sEnd = null;// 记录小链表的最后一个结点
+        ListNode bHead = null;
+        ListNode bEnd = null;
+
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            if (cur.val < x) {
+                 /* 尾插到小的链表中 */
+                if (sHead == null) {
+                    sHead = cur;
+                } else {
+                    sEnd.next = cur;
+                }
+                sEnd = cur;
+            } else {
+                /* 尾插到大的链表中 */
+                // 同理
+                if (bHead == null) {
+                    bHead = cur;
+                } else {
+                    bEnd.next = cur;
+                }
+                bEnd = cur;
+            }
+        }
+
+        if (sEnd == null) {
+            return bHead;
+        }
+
+        sEnd.next = bHead;
+        if (bEnd != null) {
+            bEnd.next = null;
+        }
+        return sHead;
+    }

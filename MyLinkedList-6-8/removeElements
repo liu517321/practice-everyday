@@ -1,0 +1,16 @@
+public ListNode removeElements(ListNode head, int val) {
+        if(head == null){
+            return head;
+        }
+        ListNode rs = new ListNode(0);
+        rs.next = head;
+        ListNode cur = rs;
+        while(cur.next != null){
+            if(cur.next.val == val){
+                cur.next = cur.next.next;
+            }else{
+                cur = cur.next;
+            }
+        }
+        return rs.next;
+    }

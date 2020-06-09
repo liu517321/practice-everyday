@@ -1,0 +1,15 @@
+public ListNode middleNode2(ListNode head) {
+       int count = 0;
+        ListNode list = head;
+        while(list != null){
+            count++;
+            list = list.next;
+        }
+        int t = count / 2;
+        while(head != null && t > 0){
+            head = head.next;
+            t--;
+        }
+        return head;
+
+    }

@@ -1,0 +1,11 @@
+public void push(int val) {
+        Node node = new Node(val);
+        if (front == null) {
+            front = node;
+        } else {
+            rear.next = node;
+        }
+
+        rear = node;
+        size++;
+    }

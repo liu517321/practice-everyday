@@ -1,0 +1,8 @@
+public int front() {
+        if (size <= 0) {
+            System.out.println("队列为空");
+            return -1;
+        }
+
+        return front.val;
+    }

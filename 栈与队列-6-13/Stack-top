@@ -1,0 +1,12 @@
+public int top() {
+        if (top <= 0) {
+            System.out.println("栈为空，无法返回栈顶元素");
+            return -1;
+        }
+
+        return array[top - 1];
+    }
+
+    public int size() {
+        return top;
+    }

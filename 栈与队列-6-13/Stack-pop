@@ -1,0 +1,9 @@
+public void pop() {
+        if (top <= 0) {
+            System.out.println("栈为空，无法删除");
+            return;
+        }
+
+        top--;
+        array[top] = 0;    // 可加可不加，把所有空的位置保持为 0
+    }

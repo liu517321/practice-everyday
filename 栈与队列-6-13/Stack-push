@@ -1,0 +1,6 @@
+public void push(int val) {
+        if (top == array.length) {
+            array = Arrays.copyOf(array, array.length * 2);
+        }
+        array[top++] = val;
+    }

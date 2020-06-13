@@ -1,0 +1,12 @@
+public void pop() {
+        if (size <= 0) {
+            System.out.println("队列为空");
+            return;
+        }
+
+        front = front.next;
+        if (front == null) {
+            rear = null;
+        }
+        size--;
+    }

@@ -1,0 +1,10 @@
+public static void inOrderTraversal(Node root) {
+        if (root == null) {
+            return;
+        }
+
+        // 左子树的中序遍历 + 根 + 右子树的中序遍历
+        inOrderTraversal(root.left);
+        System.out.println(root);
+        inOrderTraversal(root.right);
+    }

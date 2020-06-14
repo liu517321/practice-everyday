@@ -1,0 +1,8 @@
+private static List<Character> inorderList = new ArrayList<>();
+    private static void inorderReturnList(Node root) {
+        if (root != null) {
+            inorderReturnList(root.left);
+            inorderList.add(root.val);
+            inorderReturnList(root.right);
+        }
+    }

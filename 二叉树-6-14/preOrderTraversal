@@ -1,0 +1,11 @@
+public static void preOrderTraversal(Node root) {
+        // 如何找终止条件，肯定是在形参中
+        if (root == null) {
+            return;
+        }
+
+        // 根 + 左子树的前序遍历 + 右子树的前序遍历
+        System.out.println(root);
+        preOrderTraversal(root.left);
+        preOrderTraversal(root.right);
+    }

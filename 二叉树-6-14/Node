@@ -1,0 +1,15 @@
+public static class Node {
+        public char val;
+        //public int val;
+        public Node left = null;
+        public Node right = null;
+
+        private Node(char val) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("{%c}", val);
+        }
+    }

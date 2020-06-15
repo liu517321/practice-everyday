@@ -1,0 +1,10 @@
+public static int getSize2(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = getSize2(root.left);
+        int right = getSize2(root.right);
+        // 汇总(left, right)
+        return left + right + 1;
+    }

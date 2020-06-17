@@ -1,0 +1,18 @@
+public static boolean isSubTree(Node s, Node t) {
+        // 在 s 这树中查找是否有和 t 相等的树
+        if (s == null) {
+            return false;
+        }
+        // 先看根所在的树不是否和 t 相同
+        if (isSameTree(s, t)) {
+            return true;
+        }
+        // 继续去左子树中查找
+        if (isSubTree(s.left, t)) {
+            return true;
+        }
+        if (isSubTree(s.right, t)) {
+            return true;
+        }
+        return false;
+    }

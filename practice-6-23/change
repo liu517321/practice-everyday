@@ -1,0 +1,40 @@
+
+import java.util.*;
+/*
+思路：设置双指针，依次从前后进行判断，遇到偶数交换
+可能有的情况如下：
+左边为奇数,右边为奇数，指针后移，指针前移
+左边为奇数，右边为偶数，左指针后移，右指针等待
+左边为偶数，右边为奇数，左指针等待，右指针前移
+左边，右边都是偶数，数值交换，左右指针都移动
+*/
+ 
+public class Solution {
+    /**
+     * 
+     * @param number string字符串 
+     * @return string字符串
+     */
+    public String change (String number) {
+        // write code here
+        if(number.length()<=1)return number;
+        char[] ch = number.toCharArray();
+        int left = 0;
+        int right = ch.length-1;
+        while(left < right){
+            int a = ch[left] - '0';
+            int b = ch[right] - '0';
+            if(a%2!=0 && b%2 !=0){left++;right--;}
+            else if(a%2!=0 && b%2==0)left++;
+            else if(a%2==0 && b%2!=0)right--;
+            else if(a%2==0 && b%2==0){
+                char temp = ch[left];
+                ch[left] = ch[right];
+                ch[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        return String.valueOf(ch);
+    }
+}

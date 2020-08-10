@@ -1,0 +1,51 @@
+import java.util.Arrays;
+
+/**
+ * 选择排序
+ **/
+public class SelectSort {
+    /**
+     * 选择排序
+     * 从无序序列找到最小元素,放到无序序列最前面
+     */
+    private static int[] SelectSort(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            int min = i;
+            for (int j = i+1; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
+                }
+            }
+            int t = array[min];
+            array[min] = array[i];
+            array[i] = t;
+
+        }
+        return array;
+    }
+/**
+ * 选择排序
+ * 从无序序列找到最大元素,放到无序序列最后面
+ */
+
+    public static int[] selectSort1(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            // 无序区间: [0, array.length - i)
+            // 有序区间: [array.length - i, array.length)
+            int max = 0;
+            for (int j = 1; j < array.length - i; j++) {
+            if (array[j] > array[max]) {
+                max = j;
+            }
+        }
+        int t = array[max];
+        array[max] = array[array.length - i - 1];
+        array[array.length - i - 1] = t;
+        }
+        return array;
+    }
+    public static void main(String[] args) {
+        int[] array = {9,1,2,5,7,4,8,6,3,5};
+        System.out.println(Arrays.toString(selectSort1(array)));
+    }
+}

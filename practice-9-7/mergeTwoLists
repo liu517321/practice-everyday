@@ -1,0 +1,45 @@
+import java.util.*;
+
+/*
+ * public class ListNode {
+ *   int val;
+ *   ListNode next = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param l1 ListNode类 
+     * @param l2 ListNode类 
+     * @return ListNode类
+     */
+    public ListNode mergeTwoLists (ListNode l1, ListNode l2) {
+        // write code here
+        if(l1==null && l2==null) {
+            return null;
+        }
+       ListNode temp3=new ListNode(0);
+       ListNode head = temp3;
+       ListNode temp1=l1;
+       ListNode temp2=l2;
+       while(true){
+           if(temp2==null){
+               temp3.next=temp1;
+               break;
+           }else if(temp1==null){
+               temp3.next=temp2;
+               break;
+           }else if(temp1.val<=temp2.val){
+               temp3.next=temp1;
+               temp1=temp1.next;
+               temp3 = temp3.next;
+           }else{
+               temp3.next=temp2;
+               temp2=temp2.next;
+               temp3 = temp3.next;
+           }
+       }
+       return head.next;
+    }
+}

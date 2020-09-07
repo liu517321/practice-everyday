@@ -1,0 +1,56 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param root TreeNode类 the root of binary tree
+     * @return int整型二维数组
+     */
+    private static ArrayList<Integer> first = new ArrayList<>();
+private static ArrayList<Integer> middle = new ArrayList<>();
+private static ArrayList<Integer> then = new ArrayList<>();
+    private static void firstOrder(TreeNode root){
+    if(root != null){
+        first.add(root.val);
+        firstOrder(root.left);
+        firstOrder(root.right);
+    }
+}
+private static void middleOrder(TreeNode root){
+    if(root != null){
+        middleOrder(root.left);
+        middle.add(root.val);
+        middleOrder(root.right);
+    }
+}
+private static void thenOrder(TreeNode root){
+    if(root != null){
+        thenOrder(root.left);
+        thenOrder(root.right);
+        then.add(root.val);
+    }
+}
+private static final int[] toIntArray(ArrayList<Integer> arrayList){
+    int[] intArray = arrayList.stream().mapToInt(Integer::intValue).toArray();
+    return intArray;
+}
+    public int[][] threeOrders (TreeNode root) {
+        // write code here
+        int[][] orders = new int[3][];
+    firstOrder(root);
+    orders[0] = toIntArray(first);
+    middleOrder(root);
+    orders[1] = toIntArray(middle);
+    thenOrder(root);
+    orders[2] = toIntArray(then);
+    return orders;
+    }
+}

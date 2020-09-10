@@ -1,0 +1,8 @@
+public static boolean find3(Node root, int val) {
+        return root != null
+                && (
+                root.val == val
+                        || find3(root.left, val)
+                        || find3(root.right, val)
+        );
+    }

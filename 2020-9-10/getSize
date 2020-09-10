@@ -1,0 +1,9 @@
+private static int count = 0;
+    public static void getSize(Node root) {
+        if (root == null) {
+            return;
+        }
+        count++;
+        getSize(root.left);
+        getSize(root.right);
+    }

@@ -1,0 +1,42 @@
+import java.util.*;
+public class Solution {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //n行
+        int m = sc.nextInt();//m列
+        int[][] a = new int[n][m];
+        for (int i = 0;i < n;i++){
+            for(int j = 0;j <m;j++){
+                a[i][j] = sc.nextInt();
+            }
+        }
+        find(a,n,m);
+    }
+    public static void find(int[][] a,int n,int m){
+        for (int i = 0;i < n;i++){
+            for (int j =0;j < m;j++){
+                int count = 0;
+                int sum = 0;
+                int tmp = 0;
+                if (a[i][j] == -1){
+                    if (j>0 && m > j){
+                        sum = a[i][j-1]+a[i][j+1];
+                        count+=2;
+                    }
+                    if (i>0 && n>i){
+                        sum = a[i-1][j]+a[i+1][j];
+                        count+=2;
+                    }
+                    tmp = sum / count;
+                    a[i][j] = tmp;
+                }
+            }
+        }
+        for (int i =0;i<n;i++){
+            for (int j=0;j<m;j++){
+                System.out.print(a[i][j]);
+            }
+            System.out.println();
+        }
+    }
+}

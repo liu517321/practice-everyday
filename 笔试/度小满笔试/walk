@@ -1,0 +1,63 @@
+import java.util.*;
+
+
+public class Main7 {
+    private int[][] a;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+
+        //int time = walk(n,k);
+        //System.out.println(time);
+    }
+    public  void walk(int n,int k){
+        int i = 0;
+        int j = 0;
+        int time = 0;
+        if (i == n - 1&&j == n - 1){
+            return;
+        }
+        //往上走
+        if (move(n,i - 1,j)){
+            if (a[i - 1][j] =='#'){
+                time += k;
+            }
+            time++;
+        }
+        //往下走
+        if (move(n,i + 1,j)){
+            if (a[i + 1][j] =='#'){
+                time += k;
+            }
+            time++;
+        }
+        //往左走
+        if (move(n,i ,j - 1)){
+            if (a[i][j - 1] =='#'){
+                time += k;
+            }
+            time++;
+        }
+        //往右走
+        if (move(n,i ,j + 1)){
+            if (a[i ][j + 1] =='#'){
+                time += k;
+            }
+            time++;
+        }
+        System.out.println(time);
+    }
+    public  boolean move(int n,int x,int y){
+        if (x < 0|| y < 0 || x > n || y > n){
+            return false;
+        }
+        if (a[x][y] == 1){
+            return false;
+        }
+        if (a[x][y] =='#'){
+            return false;
+        }
+        return true;
+    }
+}

@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Main10 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        char[] arr = str.toCharArray();
+        char[] a = new char[str.length()];
+        int[] count = new int[str.length()];
+        char[] m = new char[1];
+        m[0] = ',';
+        //Character.valueOf(",");
+        int k = 0;
+        int t = 0;
+        for (int i = 0;i < str.length();i++){
+            for (int j = 5;j <= 8;j++){
+                //判断
+                if (arr[i] < 5 || arr[i] > 8){
+                    if (k > 0){
+                        a[k] = m[0];
+                        t = k + 1;
+                    }
+                    break;
+                }else {
+                    a[k] = arr[i];
+                    k++;
+                    count[t] ++;
+                }
+            }
+        }
+        int len = count[0];
+        int index = 0;
+        for (int i = 0;i < count.length;i++){
+            if (count[i] > len){
+                len = count[i];
+                index = i;
+            }
+        }
+
+        for (int i =index;i < len;i++){
+            System.out.print(a[i]);
+        }
+        System.out.println();
+
+    }
+}

@@ -1,0 +1,27 @@
+import java.util.*;
+//给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
+public class Main3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        //List<Character> list = new ArrayList<>();
+        //int[] count = new int[str.length()];
+        //count[0] = 1;
+        int len = 0;
+        for (int i = 0;i < str.length();i++){
+            List<Character> list = new ArrayList<>();
+            for (int j = i ;j < str.length();j++){
+                if (!list.contains(str.charAt(j))){
+                   list.add(str.charAt(j));
+                   if (len < j - i + 1){
+                       len = j - i + 1;
+                   }
+               }else {
+                   break;
+               }
+           }
+        }
+        System.out.println(len);
+    }
+
+}

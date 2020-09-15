@@ -1,0 +1,49 @@
+import java.util.*;
+public class Main12 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char[][] board = new char[200][200];
+        String word = sc.nextLine();
+        boolean result = Find(board,word);
+        System.out.println(result);
+    }
+    public  static boolean Find(char[][] board,String word){
+        if (board == null || board.length == 0) {
+            return false;
+        }
+        if (word == null){
+            return true;
+        }
+        boolean[][] a = new boolean[board.length][board[0].length];
+        for (int i = 0;i < board.length;i++){
+            for(int j = 0;j < board[i].length;j++){
+                if (exist(board,i,j,word,a)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean exist(char[][] board,int i,int j,String word,boolean[][] a){
+        int x = 0;//当前走的下标
+        if(x == word.length()-1){
+            return true;
+        }
+        if (i < 0 || j < 0 || i >= board.length || j >=board[0].length){
+            return false;
+        }
+        if (board[i][j] != word.charAt(x)) {
+            return false;
+        }
+        a[i][j] = true;
+        x++;
+        if (exist(board,i ,j - 1,word,a) || exist(board,i,j + 1,word,a)
+                || exist(board,i - 1,j,word,a) ||exist(board,i + 1,j,word,a)){
+            return true;
+        }else {
+            a[i][j] = false;
+        }
+
+        return false;
+    }
+}

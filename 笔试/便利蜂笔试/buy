@@ -1,0 +1,43 @@
+import java.util.*;
+public class Main13 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int money = sc.nextInt();
+        int n = sc.nextInt();
+        int[] items = new int[n];
+        for (int i = 0;i < n;i++){
+            items[i] = sc.nextInt();
+        }
+        Arrays.sort(items);
+        int count = buy(money,items);
+        System.out.println(count);
+    }
+    public static int buy(int money, int[] items){
+        int count = 0;
+        /**
+         * for (int i = items.length - 1;i >= 0;i--){
+         *             int t = money / items[i]; //items[i]需要的纸张数
+         *             int others = money % items[i];
+         *             money = others;
+         *             if (t > 0 && money == 0){
+         *                 count++;
+         *             }
+         *         }
+         *         return count;
+         */
+        for (int i = 0;i < money;i++){
+            //count = count + (money + 2)/2;
+            int t = money / items[i];
+            if (t == 0 && (money % items[i] != 0)){
+                continue;
+            }
+            if (t > 0 && (money % items[i] == 0)){
+                count++;
+            }
+            if (t > 0 && (money % items[i] != 0)){
+                money = money - items[i];
+            }
+        }
+        return count;
+    }
+}

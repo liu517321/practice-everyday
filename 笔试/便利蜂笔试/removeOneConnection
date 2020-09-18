@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Main14 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int[][] edges = new int[m][1];
+        System.out.print("[");
+        for (int i = 0;i < m;i++){
+            System.out.print("[");
+            edges[i][0] = sc.nextInt();
+            System.out.print(",");
+            edges[i][1] = sc.nextInt();
+            System.out.print("]");
+        }
+        System.out.print("]");
+        String result = removeOneConnection(edges,m);
+        System.out.println(result);
+    }
+    public static String removeOneConnection(int[][] edges,int m){
+        if (edges.length >= m){
+            return "Y";
+        }
+        boolean sout[] = null;
+
+        for (int i = 0;i < m;i++){
+            sout[i] = false;
+
+        }
+        return "N";
+    }
+}

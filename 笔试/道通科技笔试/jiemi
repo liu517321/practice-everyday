@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class Main15 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        if (s.length() > 50){
+            System.out.println(0);
+        }
+        jiemi(s);
+    }
+    public static void jiemi(String s){
+        int length = s.length(); //初始字符串的长度
+        char[] password = s.toCharArray(); //初始字符串
+        char[] result = new char[length];   //结果字符串
+        judge(password,result);
+    }
+    static void judge(char[] password,char[] result){
+        int j = 0;
+        for (int i = 0;i < password.length;i++){
+            if (password[i] >=65 && password[i] <=90){
+                if (password[i] == 'A'){
+                    result[j] = 'z';
+                    j++;
+                }else {
+                    result[j++] = (char)(password[i] + 31);
+                }
+            }else if (password[i] >=97 && password[i] <=122){
+                if (password[i] == 'a'){
+                    result[j++] = 'Z';
+                }else {
+                    result[j++] = (char)(password[i] - 33);
+                }
+            }else if (password[i] >=48 && password[i] <=57){
+                if (password[i] == '0'){
+                    result[j++] = '9';
+                }else {
+                    result[j++] = (char)(password[i] - 1);
+                }
+            }
+        }
+        System.out.println(String.valueOf(result));
+    }
+}
